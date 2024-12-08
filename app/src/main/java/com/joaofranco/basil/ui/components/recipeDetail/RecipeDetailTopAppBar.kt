@@ -1,5 +1,6 @@
 package com.joaofranco.basil.ui.components.recipeDetail
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -22,6 +23,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.joaofranco.basil.data.model.Recipe
 import com.joaofranco.basil.viewmodel.RecipeViewModel
@@ -36,6 +38,7 @@ fun RecipeDetailTopAppBar(
     onBookmarkClick: () -> Unit,
     onShareClick: () -> Unit,
 ) {
+    val context = LocalContext.current // Get context for showing Toast
     TopAppBar(
         title = { Text(text = "", color = MaterialTheme.colorScheme.onPrimary) },
         navigationIcon = {
@@ -51,10 +54,20 @@ fun RecipeDetailTopAppBar(
         },
         actions = {
 //If recipe is in viewModel.MyRecipes, show remove icon
-            if (viewModel.isRecipeInMyRecipes(recipe)) {
+            if (viewModel.isUserRecipe(recipe.id)) {
                 IconButton(
                     onClick = {
-                        viewModel.removeLocallyCreatedRecipe(recipe)
+                        viewModel.deleteUserRecipe(
+                            recipe = recipe,
+                            onSuccess = {
+                                // Show a Toast message on success
+                                Toast.makeText(context, "Recipe deleted successfully!", Toast.LENGTH_SHORT).show()
+                            },
+                            onFailure = { errorMessage ->
+                                // Show a Toast message on failure
+                                Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+                            }
+                        )
                         onBackClick()
                     }
                 ) {

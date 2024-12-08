@@ -162,12 +162,12 @@ fun AccountSettings(
                         StatItem(
                             icon = Icons.Filled.Grade,
                             label = "Favorites:",
-                            value = "20"
+                            value = bookmarkedRecipes.size.toString()
                         ),
                         StatItem(
                             icon = Icons.Filled.Edit,
                             label = "Creations:",
-                            value = "10"
+                            value = myRecipes.size.toString()
                         )
                     ),
                     modifier = Modifier
@@ -182,11 +182,25 @@ fun AccountSettings(
                     "favorites",
                     "Favorites"
                 ) {
-                    RecipeList(
-                        bookmarkedRecipes,
-                        viewModel,
-                        navController
-                    )
+                    if (bookmarkedRecipes.isEmpty()) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                                .clip(MaterialTheme.shapes.medium)
+                                .background(MaterialTheme.colorScheme.surfaceContainer)
+                                .padding(vertical = 40.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text("No Favorites Yet!", color = MaterialTheme.colorScheme.secondary)
+                        }
+                    } else {
+                        RecipeList(
+                            bookmarkedRecipes,
+                            viewModel,
+                            navController
+                        )
+                    }
                 }
             }
 
@@ -197,11 +211,25 @@ fun AccountSettings(
                     "cookbook",
                     "My Cookbook"
                 ) {
-                    RecipeList(
-                        myRecipes,
-                        viewModel,
-                        navController
-                    )
+                    if (myRecipes.isEmpty()) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                                .clip(MaterialTheme.shapes.medium)
+                                .background(MaterialTheme.colorScheme.surfaceContainer)
+                                .padding(vertical = 40.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text("No Recipes Yet!", color = MaterialTheme.colorScheme.secondary)
+                        }
+                    } else {
+                        RecipeList(
+                            myRecipes,
+                            viewModel,
+                            navController
+                        )
+                    }
                 }
             }
 

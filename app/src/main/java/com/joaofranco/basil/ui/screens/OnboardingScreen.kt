@@ -58,7 +58,7 @@ fun VideoBackgroundPlayer(context: Context, videoUri: Uri) {
             PlayerView(it).apply {
                 player = exoPlayer
                 useController = false // Hide media controls
-                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL // Stretch video to fill screen
+                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM // Fill screen, maintain aspect ratio, and crop excess
             }
         }
     )

@@ -46,5 +46,20 @@ fun RecipeImage(imageUrl: String) {
                 ),
             contentScale = ContentScale.Crop
         )
+        //Gradient Overlay
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Black.copy(alpha = 0.5f),
+                            Color.Transparent
+                        ),
+                        startY = 0f,
+                        endY = 400f
+                    )
+                )
+        )
     }
 }

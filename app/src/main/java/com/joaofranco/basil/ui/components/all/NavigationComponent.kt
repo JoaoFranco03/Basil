@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.joaofranco.basil.data.model.CategoryViewModel
+import com.joaofranco.basil.data.model.Recipe
 import com.joaofranco.basil.ui.screens.AIRecipes
 import com.joaofranco.basil.ui.screens.AccountSettings
 import com.joaofranco.basil.ui.screens.OnboardingScreen
@@ -17,6 +18,8 @@ import com.joaofranco.basil.ui.screens.HomeScreen
 import com.joaofranco.basil.ui.screens.MyCookbookScreen
 import com.joaofranco.basil.ui.screens.RecipeCreationScreen
 import com.joaofranco.basil.ui.screens.RecipeDetailScreen
+import com.joaofranco.basil.ui.screens.RecipeForm
+import com.joaofranco.basil.ui.screens.SearchScreen
 import com.joaofranco.basil.ui.screens.SignInScreen
 import com.joaofranco.basil.ui.screens.SignUpScreen
 import com.joaofranco.basil.viewmodel.FirebaseAuthViewModel
@@ -26,7 +29,7 @@ import com.joaofranco.basil.viewmodel.RecipeViewModel
 fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
     val recipeViewModel: RecipeViewModel = viewModel()
     val categoryViewModel: CategoryViewModel = viewModel()
-    val authViewModel = viewModel<FirebaseAuthViewModel>()
+    val authViewModel = FirebaseAuthViewModel(recipeViewModel)
 
     NavHost(
         navController = navController,
@@ -86,6 +89,15 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
             HomeScreen(navController, recipeViewModel, categoryViewModel, authViewModel, modifier = modifier)
         }
 
+        //Search screen
+        composable(
+            "search",
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None }
+        ) {
+            SearchScreen(navController, recipeViewModel)
+        }
+
         // Other screens (e.g., favorites, cookbook, etc.) remain unchanged
         composable(
             "favorites",
@@ -95,12 +107,21 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
             FavoritesScreen(navController, recipeViewModel)
         }
 
+        //recipeCreation
+        composable(
+            "recipeCreation",
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None }
+        ) {
+            RecipeForm(Recipe(), recipeViewModel, navController, onSave = { /* Handle saving the recipe */ })
+        }
+
         composable(
             "cookbook",
             enterTransition = { EnterTransition.None },
             exitTransition = { ExitTransition.None }
         ) {
-            MyCookbookScreen(recipeViewModel, navController)
+            MyCookbookScreen(recipeViewModel, authViewModel, navController)
         }
 
         composable(
@@ -139,29 +160,6 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
             if (categoryName != null) {
                 CategoryDetailPage(categoryName, recipeViewModel, navController)
             }
-        }
-
-        // Recipe creation screen
-        composable(
-            "recipeCreation",
-            enterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            exitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            },
-            popEnterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            popExitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            }) { backStackEntry ->
-            RecipeCreationScreen(
-                onSubmit = { recipe ->
-                    recipeViewModel.addLocallyCreatedRecipe(recipe)
-                    navController.popBackStack()
-                }
-            )
         }
 
         // AI Recipes screen

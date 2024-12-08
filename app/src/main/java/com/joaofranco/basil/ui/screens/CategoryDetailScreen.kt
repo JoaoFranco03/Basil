@@ -1,6 +1,7 @@
 package com.joaofranco.basil.ui.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,6 +26,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -60,6 +63,8 @@ fun CategoryDetailPage(label: String, recipesViewModel: RecipeViewModel, navCont
     val categoryRecipes by recipesViewModel.categoryRecipes.observeAsState(emptyList())
     val isLoading by recipesViewModel.isLoading.observeAsState(true)
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val context = LocalContext.current
+    val bookmarkedRecipes by recipesViewModel.bookmarkedRecipes.collectAsState()
 
     Scaffold(
         topBar = {
@@ -152,7 +157,21 @@ fun CategoryDetailPage(label: String, recipesViewModel: RecipeViewModel, navCont
                             isBookmarked = recipesViewModel.isBookmarked(recipe.id),
                             onBookmarkClick = {
                                 // Toggle the bookmark state
-                                recipesViewModel.toggleBookmark(recipe)
+                                recipesViewModel.toggleBookmark(
+                                    recipe,
+                                    onSuccess = {
+                                        // Show a Toast message on success
+                                        if (bookmarkedRecipes.contains(recipe)) {
+                                            Toast.makeText(context, "Recipe Unbookmarked Successfully!", Toast.LENGTH_SHORT).show()
+                                        } else {
+                                            Toast.makeText(context, "Recipe Bookmarked Successfully!", Toast.LENGTH_SHORT).show()
+                                        }
+                                    },
+                                    onFailure = { errorMessage ->
+                                        // Show a Toast message on failure
+                                        Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+                                    }
+                                )
                             }
                         )
                     }

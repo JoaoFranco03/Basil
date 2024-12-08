@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -38,6 +39,7 @@ import com.joaofranco.basil.viewmodel.RecipeViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeDetailScreen(navController: NavController, viewModel: RecipeViewModel) {
+    val bookmarkedRecipes by viewModel.bookmarkedRecipes.collectAsState() // Collect the StateFlow
     val selectedRecipe by viewModel.selectedRecipe.observeAsState()
     val initialBookmarkState = selectedRecipe?.let { viewModel.isBookmarked(it.id) } ?: false
     var isBookmarked by remember { mutableStateOf(initialBookmarkState) }
@@ -103,7 +105,21 @@ fun RecipeDetailScreen(navController: NavController, viewModel: RecipeViewModel)
                         onBackClick = { navController.popBackStack() },
                         onBookmarkClick = {
                             isBookmarked = !isBookmarked
-                            viewModel.toggleBookmark(recipe)
+                            viewModel.toggleBookmark(
+                                recipe,
+                                onSuccess = {
+                                    // Show a Toast message on success
+                                    if (bookmarkedRecipes.contains(recipe)) {
+                                        Toast.makeText(context, "Recipe Unbookmarked Successfully!", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(context, "Recipe Bookmarked Successfully!", Toast.LENGTH_SHORT).show()
+                                    }
+                                },
+                                onFailure = { errorMessage ->
+                                    // Show a Toast message on failure
+                                    Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+                                }
+                            )
                         },
                         viewModel = viewModel,
                         recipe = recipe,

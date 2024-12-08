@@ -3,6 +3,7 @@ package com.joaofranco.basil.ui.components.home
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -49,6 +50,8 @@ import coil.request.ImageRequest
 import com.joaofranco.basil.data.model.Recipe
 import com.joaofranco.basil.viewmodel.RecipeViewModel
 import com.joaofranco.basil.ui.components.all.ShimmerBrush
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.ui.input.pointer.pointerInput
 
 
 @Composable
@@ -59,14 +62,35 @@ fun RecipeCard(
     viewModel: RecipeViewModel,
     navController: NavController,
     isBookmarked: Boolean,
-    onBookmarkClick: (String) -> Unit // Callback to handle bookmark clicks
+    onBookmarkClick: (String) -> Unit, // Callback to handle bookmark clicks
+    isSelectionMode: Boolean = false,
+    isSelected: Boolean = false,
+    onLongClick: () -> Unit = {},
 ) {
     Card(
         modifier = modifier
-            .clickable {
-                viewModel.updateSelectedRecipe(recipe)
-                navController.navigate("recipeDetail") // Navigate using recipe ID
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onLongPress = { onLongClick() },
+                    onTap = {
+                        if (isSelectionMode) {
+                            viewModel.toggleRecipeSelection(recipe.id)
+                        } else {
+                            viewModel.updateSelectedRecipe(recipe)
+                            navController.navigate("recipeDetail")
+                        }
+                    }
+                )
             }
+            .then(
+                if (isSelected) {
+                    Modifier.border(
+                        2.dp,
+                        MaterialTheme.colorScheme.primary,
+                        RoundedCornerShape(12.dp)
+                    )
+                } else Modifier
+            )
             .then(
                 if (fullWidth == true) Modifier.fillMaxWidth() else Modifier.width(300.dp)
             ),
@@ -126,6 +150,18 @@ fun RecipeCard(
                 modifier = Modifier.padding(top = 2.dp),
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.secondary
+            )
+        }
+
+        if (isSelectionMode) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        if (isSelected) 
+                            MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
+                        else Color.Transparent
+                    )
             )
         }
     }

@@ -65,7 +65,6 @@ import com.joaofranco.basil.data.model.Recipe
 import com.joaofranco.basil.ui.theme.BasilTheme
 import com.joaofranco.basil.viewmodel.PromptHistoryManager
 import com.joaofranco.basil.viewmodel.RecipeViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.generationConfig
@@ -86,13 +85,12 @@ fun AIRecipes(viewModel: RecipeViewModel, navController: NavController) {
     val gson = gsonBuilder.create()
     // Gemini Model
     val generativeModel = GenerativeModel(
-        "gemini-1.5-flash",
+        "gemini-1.5-flash-8b",
         "AIzaSyCHXS1BPLw0psrY_1N8vHxeSg41xn8XHp4",
         generationConfig = generationConfig {
-            temperature = 2f
-            topK = 40
-            topP = 0.95f
-            maxOutputTokens = 8192
+            temperature = 0.99f // Increase the temperature for more diverse outputs
+            topP = 1f // Use nucleus sampling
+            topK = 40 // Limit the sampling to the top-k tokens
             responseMimeType = "application/json"
         },
     )
@@ -183,7 +181,17 @@ fun AIRecipes(viewModel: RecipeViewModel, navController: NavController) {
                     if (recipe.title.isNotBlank()) {
                         val imageUrl = fetchImageUrl(recipe.title)
                         recipe.image = imageUrl
-                        viewModel.addLocallyCreatedRecipe(recipe)
+                        viewModel.addRecipeToUserRecipes(
+                            recipe = recipe,
+                            onSuccess = {
+                                // Show a Toast message on success
+                                Toast.makeText(context, "Recipe added successfully!", Toast.LENGTH_SHORT).show()
+                            },
+                            onFailure = { errorMessage ->
+                                // Show a Toast message on failure
+                                Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+                            }
+                        )
                         viewModel.updateSelectedRecipe(recipe)
                         navController.navigate("recipeDetail")
                     } else {
@@ -314,7 +322,11 @@ fun AIRecipes(viewModel: RecipeViewModel, navController: NavController) {
                                 Row(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(vertical = 8.dp),
+                                        .padding(vertical = 8.dp)
+                                        .clickable {
+                                            userRequest.value = prompt
+                                            sendRequest()
+                                        },
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     // Icon

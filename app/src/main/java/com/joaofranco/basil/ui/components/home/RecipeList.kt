@@ -1,5 +1,6 @@
 package com.joaofranco.basil.ui.components.home
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.*
@@ -20,6 +21,7 @@ fun RecipeList(
 ) {
     val bookmarkedRecipes by viewModel.bookmarkedRecipes.collectAsState()
     val isLoading by viewModel.isLoading.observeAsState(true)
+    val context = LocalContext.current
 
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -49,7 +51,21 @@ fun RecipeList(
                     navController = navController,
                     isBookmarked = isBookmarked,
                     onBookmarkClick = {
-                        viewModel.toggleBookmark(recipe)
+                        viewModel.toggleBookmark(
+                            recipe,
+                            onSuccess = {
+                                // Show a Toast message on success
+                                if (bookmarkedRecipes.contains(recipe)) {
+                                    Toast.makeText(context, "Recipe Unbookmarked Successfully!", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(context, "Recipe Bookmarked Successfully!", Toast.LENGTH_SHORT).show()
+                                }
+                            },
+                            onFailure = { errorMessage ->
+                                // Show a Toast message on failure
+                                Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+                            }
+                        )
                     },
                     modifier = Modifier.padding(
                         start = if (index == 0) 16.dp else 0.dp,

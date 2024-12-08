@@ -8,8 +8,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.userProfileChangeRequest
 import java.util.regex.Pattern
+import com.joaofranco.basil.viewmodel.RecipeViewModel
 
-class FirebaseAuthViewModel : ViewModel() {
+class FirebaseAuthViewModel(private val recipesViewModel: RecipeViewModel) : ViewModel() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -18,6 +19,9 @@ class FirebaseAuthViewModel : ViewModel() {
 
     init {
         _user.value = auth.currentUser  // Get the current user on initialization
+        recipesViewModel.loadBookmarkedRecipes()
+        recipesViewModel.loadMyRecipes()
+        recipesViewModel.getAllRecipes()
     }
 
     // Helper function to validate email format
@@ -115,6 +119,9 @@ class FirebaseAuthViewModel : ViewModel() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     _user.value = auth.currentUser
+                    recipesViewModel.loadBookmarkedRecipes()
+                    recipesViewModel.loadMyRecipes()
+                    recipesViewModel.getAllRecipes()
                     onSuccess()
                 } else {
                     val errorMessage =

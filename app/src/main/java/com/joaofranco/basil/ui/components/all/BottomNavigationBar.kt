@@ -12,12 +12,14 @@ import androidx.compose.material.icons.filled.Book
 import androidx.compose.material.icons.filled.Grade
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.Book
 import androidx.compose.material.icons.outlined.Grade
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -36,7 +38,7 @@ import com.joaofranco.basil.R
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     // Define the routes where the BottomNavigationBar should be visible
-    val navigationBarItemPages = listOf("home", "favorites", "accountSettings")
+    val navigationBarItemPages = listOf("home", "search", "accountSettings")
 
     // Get the current backstack entry and observe the destination
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
@@ -69,20 +71,20 @@ fun BottomNavigationBar(navController: NavController) {
                 }
             )
             NavigationBarItem(
-                selected = currentDestination?.route == "favorites",
+                selected = currentDestination?.route == "search",
                 onClick = {
-                    navController.navigate("favorites") {
+                    navController.navigate("search") {
                         popUpTo(navController.graph.startDestinationId) { saveState = false }
                         launchSingleTop = true
                         restoreState = true
                     }
                 },
-                label = { Text("Favorites") },
+                label = { Text("Search") },
                 icon = {
-                    if (currentDestination?.route == "favorites") {
-                        androidx.compose.material3.Icon(Icons.Filled.Grade, contentDescription = "Favorites")
+                    if (currentDestination?.route == "search") {
+                        androidx.compose.material3.Icon(Icons.Filled.Search, contentDescription = "Favorites")
                     } else {
-                        androidx.compose.material3.Icon(Icons.Outlined.Grade, contentDescription = "Favorites")
+                        androidx.compose.material3.Icon(Icons.Outlined.Search, contentDescription = "Favorites")
                     }
                 }
             )

@@ -146,7 +146,7 @@ fun HomeScreen(navController: NavController, recipeViewModel: RecipeViewModel, c
             }
             item {
                 var recipesVegetarian = recipes.filter { it.tags.contains("Vegetarian") }
-                Section("Vegetarian Recipes:") {
+                Section("Vegetarian Recipes:", Modifier.padding(bottom = 152.dp)) {
                     RecipeList(recipesVegetarian, recipeViewModel, navController)
                 }
             }
