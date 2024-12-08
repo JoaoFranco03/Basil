@@ -14,6 +14,10 @@
     <img alt="Material Design" src="https://img.shields.io/badge/Material%203-757575?style=for-the-badge&logo=materialdesign&logoColor=white"/>
 </p>
 
+<div align="center">
+    <img src="https://github.com/JoaoFranco03/Basil/blob/main/app/src/main/res/drawable/mockup.png" alt="App Showcase" style="border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"/>
+</div>
+
 ---
 
 ## 👀 Project Vision
@@ -65,6 +69,7 @@ Basil's AI-powered recipe generation is a sophisticated culinary companion that 
 - **Material You Integration**: Native system design adaptation, dynamically matching the device's color scheme and personal style
   - Automatic theme synchronization
   - Personalized color palettes
+  - Adaptive Icon: A customizable icon that adapts to the device's theme and display settings, providing a consistent visual experience across different devices.
   - Adaptive design that feels seamlessly integrated with the user's device
 - **Gemini Integration**: Powerful AI-driven features for personalized recipe suggestions, ingredient-based meal ideas, and culinary recommendations.
 - **Firebase Integration**: Real-time syncing across devices, secure user authentication, and cloud storage for a seamless, connected experience.
@@ -101,14 +106,9 @@ Basil's AI-powered recipe generation is a sophisticated culinary companion that 
 git clone https://github.com/JoaoFranco03/Basil.git
 
 # Open Project in Android Studio
-# Run it in Real Device or Simulator
+# Run the app in Real Device or Simulator
+# Create a new account or use sample: Username: test@mail.com / Password: Password1234
 ```
----
-## 📱 Screenshots
-<div align="center">
-    <img src="https://via.placeholder.com/800x400" alt="App Showcase" style="border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"/>
-</div>
-
 ---
 <div align="center">
     <strong>Project cooked up by <a href="https://www.linkedin.com/in/joão-p-franco/" target="_blank">João Franco</a></strong>
