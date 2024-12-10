@@ -29,29 +29,36 @@
 ## ✨ Feature Constellation
 
 ### 🔍 Recipe Discovery
+
 - **Comprehensive Filters**: Search by name, category or ingredients
 - **Rich Media**: High-quality recipe images, detailed step-by-step guides, and video tutorials, all powered by a custom-built Firebase API for a seamless experience.
-  
+
 ### ⭐ Personalized Favorites
+
 - **Bookmarking**: Organization of saved recipes
 - **Sync Across Devices**: Seamless recipe management powered by Firebase, ensuring your recipes and favorites are accessible anywhere
 
 ### 🤖 AI Recipe Alchemy
+
 Basil's AI-powered recipe generation is a sophisticated culinary companion that adapts to your unique cooking needs:
 
-- **Ingredient-Based Precision**: 
+- **Ingredient-Based Precision**:
+
   - Exact Ingredient Matching: When users specify "only" certain ingredients, the AI creates recipes using exclusively those components
   - Flexible Ingredient Exploration: Generate creative recipes based on available pantry items
 
 - **Contextual Recipe Design**:
+
   - Meal Purpose Adaptation: Craft recipes for specific contexts like "dinner recipe" or "impressive guest meal"
   - Occasion-Specific Creations: Design recipes tailored to events like birthdays, holidays, or special celebrations
 
 - **Dietary Intelligence**:
+
   - Comprehensive Dietary Compliance: Seamlessly generate recipes that respect vegetarian, gluten-free, keto, and other dietary restrictions
   - Nutritional Awareness: Ensure recipes meet specific health and dietary guidelines
 
 - **Culinary Creativity**:
+
   - Unexpected Flavor Combinations: Generate unique and surprising recipes for adventurous cooks
   - Cuisine Exploration: Create authentic recipes inspired by specific culinary traditions (Italian, Mexican, Thai, etc.)
 
@@ -60,11 +67,14 @@ Basil's AI-powered recipe generation is a sophisticated culinary companion that 
   - Time and Context Sensitivity: Recommend recipes appropriate to the specific meal or dining situation
 
 ### 🔒 Cross-Device Synchronization with Firebase
+
 - **Firebase Authentication**: Securely manage user accounts and preferences with industry-standard authentication
 - **Firebase Cloud Firestore**: Store and sync recipes, collections, and favorites across devices in real-time for a seamless experience
 
 ---
+
 ## 🧱 Technical Foundation
+
 - **MVVM Architecture**: Clean, maintainable code structure
 - **Material You Integration**: Native system design adaptation, dynamically matching the device's color scheme and personal style
   - Automatic theme synchronization
@@ -73,18 +83,20 @@ Basil's AI-powered recipe generation is a sophisticated culinary companion that 
   - Adaptive design that feels seamlessly integrated with the user's device
 - **Gemini Integration**: Powerful AI-driven features for personalized recipe suggestions, ingredient-based meal ideas, and culinary recommendations.
 - **Firebase Integration**: Real-time syncing across devices, secure user authentication, and cloud storage for a seamless, connected experience.
-  
+
 ---
+
 ## 📊 Technical Specifications
 
-| Aspect            | Details              |
-|-------------------|----------------------|
-| **Minimum SDK**    | Android 8.0 (API 28) |
-| **Target SDK**     | Android 14 (API 34)  |
-| **Compose Version**| 1.5.1                |
-| **Kotlin Version** | 1.9.0                |
+| Aspect              | Details              |
+| ------------------- | -------------------- |
+| **Minimum SDK**     | Android 8.0 (API 28) |
+| **Target SDK**      | Android 14 (API 34)  |
+| **Compose Version** | 1.5.1                |
+| **Kotlin Version**  | 1.9.0                |
 
 ---
+
 ## 🚀 Getting Started
 
 ### 🛠️ Prerequisites
@@ -106,10 +118,13 @@ Basil's AI-powered recipe generation is a sophisticated culinary companion that 
 git clone https://github.com/JoaoFranco03/Basil.git
 
 # Open Project in Android Studio
+# Add Gemini API Key to AIRecipes.kt
 # Run the app in Real Device or Simulator
 # Create a new account or use sample: Username: test@mail.com / Password: Password1234
 ```
+
 ---
+
 <div align="center">
     <strong>Project cooked up by <a href="https://www.linkedin.com/in/joão-p-franco/" target="_blank">João Franco</a></strong>
 </div>
