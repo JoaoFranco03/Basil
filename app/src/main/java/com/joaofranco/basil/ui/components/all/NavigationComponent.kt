@@ -113,7 +113,7 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
             enterTransition = { EnterTransition.None },
             exitTransition = { ExitTransition.None }
         ) {
-            RecipeForm(Recipe(), recipeViewModel, navController, onSave = { /* Handle saving the recipe */ })
+            RecipeForm(Recipe(), recipeViewModel, navController)
         }
 
         composable(
@@ -121,7 +121,7 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
             enterTransition = { EnterTransition.None },
             exitTransition = { ExitTransition.None }
         ) {
-            MyCookbookScreen(recipeViewModel, authViewModel, navController)
+            MyCookbookScreen(recipeViewModel, navController)
         }
 
         composable(
@@ -138,7 +138,7 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
             popExitTransition = {
                 slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
             }
-        ) { backStackEntry ->
+        ) {
             RecipeDetailScreen(navController, recipeViewModel)
         }
 

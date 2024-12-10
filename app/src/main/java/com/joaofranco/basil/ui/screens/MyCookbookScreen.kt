@@ -53,7 +53,7 @@ import com.joaofranco.basil.viewmodel.RecipeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyCookbookScreen(viewModel: RecipeViewModel, authViewModel: FirebaseAuthViewModel, navController: NavController) {
+fun MyCookbookScreen(viewModel: RecipeViewModel, navController: NavController) {
     val myRecipes by viewModel.myRecipes.collectAsState() // Collect the StateFlow
     val bookmarkedRecipes by viewModel.bookmarkedRecipes.collectAsState() // Collect the StateFlow
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
@@ -95,7 +95,7 @@ fun MyCookbookScreen(viewModel: RecipeViewModel, authViewModel: FirebaseAuthView
                         }
                     }) {
                         Icon(
-                            imageVector = Icons.Filled.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
                             tint = MaterialTheme.colorScheme.primary
                         )

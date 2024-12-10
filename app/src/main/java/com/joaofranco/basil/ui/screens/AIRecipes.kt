@@ -86,7 +86,8 @@ fun AIRecipes(viewModel: RecipeViewModel, navController: NavController) {
     // Gemini Model
     val generativeModel = GenerativeModel(
         "gemini-1.5-flash-8b",
-        "AIzaSyCHXS1BPLw0psrY_1N8vHxeSg41xn8XHp4",
+        //Add your Gemini API key
+        "",
         generationConfig = generationConfig {
             temperature = 0.99f // Increase the temperature for more diverse outputs
             topP = 1f // Use nucleus sampling

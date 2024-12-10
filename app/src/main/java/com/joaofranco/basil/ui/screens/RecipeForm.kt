@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Delete
@@ -37,11 +38,9 @@ import com.joaofranco.basil.viewmodel.RecipeViewModel
 fun RecipeForm(
     recipe: Recipe = Recipe(),
     viewModel: RecipeViewModel,
-    navController: NavController,
-    onSave: (Recipe) -> Unit
+    navController: NavController
 ) {
     var title by remember { mutableStateOf(recipe.title) }
-    var recipeCategory by remember { mutableStateOf(recipe.recipeCategory) }
     var description by remember { mutableStateOf(recipe.description) }
     var prepTime by remember { mutableStateOf(recipe.prepTime.toString()) }
     var cookTime by remember { mutableStateOf(recipe.cookTime.toString()) }
@@ -59,7 +58,7 @@ fun RecipeForm(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
-                            imageVector = Icons.Filled.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
                     }
