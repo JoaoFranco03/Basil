@@ -32,6 +32,7 @@
 
 - **Comprehensive Filters**: Search by name, category or ingredients
 - **Rich Media**: High-quality recipe images, detailed step-by-step guides, and video tutorials, all powered by a custom-built Firebase API for a seamless experience.
+- **Feeling Lucky**: Not sure what to cook? Hit the "Feeling Lucky" button to instantly discover a random recipe from the database.
 
 ### ⭐ Personalized Favorites
 
