@@ -125,6 +125,9 @@ fun RecipeDetailScreen(navController: NavController, viewModel: RecipeViewModel)
                         recipe = recipe,
                         onShareClick = {
                             shareRecipe(recipe)
+                        },
+                        onAskQuestionClick = {
+                            navController.navigate("askQuestion")
                         }
                     )
                 }

@@ -22,6 +22,7 @@ import com.joaofranco.basil.ui.screens.RecipeForm
 import com.joaofranco.basil.ui.screens.SearchScreen
 import com.joaofranco.basil.ui.screens.SignInScreen
 import com.joaofranco.basil.ui.screens.SignUpScreen
+import com.joaofranco.basil.ui.screens.AskQuestionScreen
 import com.joaofranco.basil.viewmodel.FirebaseAuthViewModel
 import com.joaofranco.basil.viewmodel.RecipeViewModel
 
@@ -188,6 +189,25 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
             exitTransition = { ExitTransition.None }
         ) {
             AccountSettings(navController, authViewModel, recipeViewModel)
+        }
+
+        // Ask Question screen
+        composable(
+            "askQuestion",
+            enterTransition = {
+                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
+            },
+            exitTransition = {
+                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
+            },
+            popEnterTransition = {
+                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
+            },
+            popExitTransition = {
+                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
+            }
+        ) {
+            AskQuestionScreen(navController, recipeViewModel)
         }
     }
 }

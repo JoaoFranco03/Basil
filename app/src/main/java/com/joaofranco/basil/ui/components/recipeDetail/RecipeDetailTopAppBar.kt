@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Grade
+import androidx.compose.material.icons.filled.QuestionAnswer
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.Grade
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,6 +38,7 @@ fun RecipeDetailTopAppBar(
     onBackClick: () -> Unit,
     onBookmarkClick: () -> Unit,
     onShareClick: () -> Unit,
+    onAskQuestionClick: () -> Unit // Add this parameter
 ) {
     val context = LocalContext.current // Get context for showing Toast
     TopAppBar(
@@ -53,7 +55,7 @@ fun RecipeDetailTopAppBar(
             }
         },
         actions = {
-//If recipe is in viewModel.MyRecipes, show remove icon
+            // If recipe is in viewModel.MyRecipes, show remove icon
             if (viewModel.isUserRecipe(recipe.id)) {
                 IconButton(
                     onClick = {
@@ -77,6 +79,13 @@ fun RecipeDetailTopAppBar(
                         tint = Color.White
                     )
                 }
+            }
+            IconButton(onClick = { onAskQuestionClick() }) {
+                Icon(
+                    imageVector = Icons.Filled.QuestionAnswer,
+                    contentDescription = "Ask Question",
+                    tint = Color.White
+                )
             }
             IconButton(onClick = { onShareClick() }) {
                 Icon(
