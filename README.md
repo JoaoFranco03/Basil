@@ -67,6 +67,16 @@ Basil's AI-powered recipe generation is a sophisticated culinary companion that 
   - Comprehensive Meal Coverage: Generate perfect recipes for breakfast, lunch, dinner, desserts, and snacks
   - Time and Context Sensitivity: Recommend recipes appropriate to the specific meal or dining situation
 
+### 🤖 AI Sous Chef
+
+Basil's AI Sous Chef is your ultimate kitchen assistant, providing intelligent support to enhance your cooking experience:
+
+- **Answer Questions**: Get instant answers to your cooking questions, from ingredient substitutions to cooking techniques.
+- **Ask for Alternatives**: Easily find alternatives for ingredients you don't have on hand, ensuring you can always complete your recipes.
+- **Ljubomir Stanisic Roast Mode**: Engage with a feature that has a strong personality, providing blunt and humorous feedback on your cooking techniques and recipe choices.
+
+With AI Sous Chef, cooking becomes more intuitive, enjoyable, and successful, making every meal a culinary triumph.
+
 ### 🔒 Cross-Device Synchronization with Firebase
 
 - **Firebase Authentication**: Securely manage user accounts and preferences with industry-standard authentication
