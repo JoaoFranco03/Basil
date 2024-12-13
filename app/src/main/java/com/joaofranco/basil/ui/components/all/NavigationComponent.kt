@@ -1,6 +1,9 @@
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -26,6 +29,24 @@ import com.joaofranco.basil.ui.screens.AskQuestionScreen
 import com.joaofranco.basil.viewmodel.FirebaseAuthViewModel
 import com.joaofranco.basil.viewmodel.RecipeViewModel
 
+private fun AnimatedContentTransitionScope<*>.slideInLeft() =
+    slideIntoContainer(
+        towards = AnimatedContentTransitionScope.SlideDirection.Left,
+        animationSpec = tween(300)
+    ) + fadeIn(animationSpec = tween(300))
+
+private fun AnimatedContentTransitionScope<*>.slideOutRight() =
+    slideOutOfContainer(
+        towards = AnimatedContentTransitionScope.SlideDirection.Right,
+        animationSpec = tween(300)
+    ) + fadeOut(animationSpec = tween(300))
+
+private fun AnimatedContentTransitionScope<*>.defaultEnterTransition() =
+    fadeIn(animationSpec = tween(300))
+
+private fun AnimatedContentTransitionScope<*>.defaultExitTransition() =
+    fadeOut(animationSpec = tween(300))
+
 @Composable
 fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
     val recipeViewModel: RecipeViewModel = viewModel()
@@ -46,18 +67,10 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
         //Sign up screen
         composable(
             "signUp",
-            enterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            exitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            },
-            popEnterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            popExitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            }
+            enterTransition = { slideInLeft() },
+            exitTransition = { defaultExitTransition() },
+            popEnterTransition = { defaultEnterTransition() },
+            popExitTransition = { slideOutRight() }
         ) {
             SignUpScreen(navController,authViewModel)
         }
@@ -65,18 +78,10 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
         //Sign up screen
         composable(
             "signIn",
-            enterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            exitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            },
-            popEnterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            popExitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            }
+            enterTransition = { slideInLeft() },
+            exitTransition = { defaultExitTransition() },
+            popEnterTransition = { defaultEnterTransition() },
+            popExitTransition = { slideOutRight() }
         ) {
             SignInScreen(navController,authViewModel)
         }
@@ -84,8 +89,8 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
         // Home screen
         composable(
             "home",
-            enterTransition = { EnterTransition.None },
-            exitTransition = { ExitTransition.None }
+            enterTransition = { defaultEnterTransition() },
+            exitTransition = { defaultExitTransition() }
         ) {
             HomeScreen(navController, recipeViewModel, categoryViewModel, authViewModel, modifier = modifier)
         }
@@ -93,8 +98,8 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
         //Search screen
         composable(
             "search",
-            enterTransition = { EnterTransition.None },
-            exitTransition = { ExitTransition.None }
+            enterTransition = { defaultEnterTransition() },
+            exitTransition = { defaultExitTransition() }
         ) {
             SearchScreen(navController, recipeViewModel)
         }
@@ -102,8 +107,8 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
         // Other screens (e.g., favorites, cookbook, etc.) remain unchanged
         composable(
             "favorites",
-            enterTransition = { EnterTransition.None },
-            exitTransition = { ExitTransition.None }
+            enterTransition = { defaultEnterTransition() },
+            exitTransition = { defaultExitTransition() }
         ) {
             FavoritesScreen(navController, recipeViewModel)
         }
@@ -111,52 +116,36 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
         //recipeCreation
         composable(
             "recipeCreation",
-            enterTransition = { EnterTransition.None },
-            exitTransition = { ExitTransition.None }
+            enterTransition = { defaultEnterTransition() },
+            exitTransition = { defaultExitTransition() }
         ) {
             RecipeForm(Recipe(), recipeViewModel, navController)
         }
 
         composable(
             "cookbook",
-            enterTransition = { EnterTransition.None },
-            exitTransition = { ExitTransition.None }
+            enterTransition = { defaultEnterTransition() },
+            exitTransition = { defaultExitTransition() }
         ) {
             MyCookbookScreen(recipeViewModel, navController)
         }
 
         composable(
             "recipeDetail",
-            enterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            exitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            },
-            popEnterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            popExitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            }
+            enterTransition = { slideInLeft() },
+            exitTransition = { defaultExitTransition() },
+            popEnterTransition = { defaultEnterTransition() },
+            popExitTransition = { slideOutRight() }
         ) {
             RecipeDetailScreen(navController, recipeViewModel)
         }
 
         composable(
             "categoryDetail/{categoryName}",
-            enterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            exitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            },
-            popEnterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            popExitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            }) { backStackEntry ->
+            enterTransition = { slideInLeft() },
+            exitTransition = { defaultExitTransition() },
+            popEnterTransition = { defaultEnterTransition() },
+            popExitTransition = { slideOutRight() }) { backStackEntry ->
             val categoryName = backStackEntry.arguments?.getString("categoryName")
             if (categoryName != null) {
                 CategoryDetailPage(categoryName, recipeViewModel, navController)
@@ -166,18 +155,10 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
         // AI Recipes screen
         composable(
             "aiRecipes",
-            enterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            exitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            },
-            popEnterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            popExitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            }
+            enterTransition = { slideInLeft() },
+            exitTransition = { defaultExitTransition() },
+            popEnterTransition = { defaultEnterTransition() },
+            popExitTransition = { slideOutRight() }
         ) {
             AIRecipes(recipeViewModel, navController)  // Display the AI Recipes screen
         }
@@ -185,8 +166,8 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
         // Account screen
         composable(
             "accountSettings",
-            enterTransition = { EnterTransition.None },
-            exitTransition = { ExitTransition.None }
+            enterTransition = { defaultEnterTransition() },
+            exitTransition = { defaultExitTransition() }
         ) {
             AccountSettings(navController, authViewModel, recipeViewModel)
         }
@@ -194,18 +175,10 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
         // Ask Question screen
         composable(
             "askQuestion",
-            enterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            exitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            },
-            popEnterTransition = {
-                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left)
-            },
-            popExitTransition = {
-                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right)
-            }
+            enterTransition = { slideInLeft() },
+            exitTransition = { defaultExitTransition() },
+            popEnterTransition = { defaultEnterTransition() },
+            popExitTransition = { slideOutRight() }
         ) {
             AskQuestionScreen(navController, recipeViewModel)
         }

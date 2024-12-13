@@ -18,6 +18,12 @@
     <img src="https://github.com/JoaoFranco03/Basil/blob/main/app/src/main/res/drawable/mockup.png" alt="App Showcase" style="border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"/>
 </div>
 
+<p align="center">
+    <a href="https://youtu.be/Bj5sZ7KhZiI">
+        <img src="https://img.shields.io/badge/Watch%20Video-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch Video"/>
+    </a>
+</p>
+
 ---
 
 ## 👀 Project Vision
@@ -129,7 +135,7 @@ With AI Sous Chef, cooking becomes more intuitive, enjoyable, and successful, ma
 git clone https://github.com/JoaoFranco03/Basil.git
 
 # Open Project in Android Studio
-# Add Gemini API Key to AIRecipes.kt
+# Add Gemini API Key to AIRecipes.kt and AskQuestionScreen.kt
 # Run the app in Real Device or Simulator
 # Create a new account or use sample: Username: test@mail.com / Password: Password1234
 ```

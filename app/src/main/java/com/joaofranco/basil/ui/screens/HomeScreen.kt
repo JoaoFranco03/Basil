@@ -78,14 +78,6 @@ fun HomeScreen(navController: NavController, recipeViewModel: RecipeViewModel, c
                         color = MaterialTheme.colorScheme.primary,
                     )
                 },
-                actions = {
-                    // Add a delete all button
-                    IconButton(onClick = {
-                        //Todo: Implement Search
-                    }) {
-                        Icon(Icons.Filled.Search, contentDescription = "Search")
-                    }
-                },
                 scrollBehavior = scrollBehavior
             )
         },
