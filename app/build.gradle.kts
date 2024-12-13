@@ -85,6 +85,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation (libs.androidx.media3.exoplayer.v100)
     implementation (libs.androidx.media3.ui.v100)
+    implementation(libs.androidx.foundation.layout.android)
     testImplementation(libs.junit)
     implementation(libs.androidx.material.icons.extended)
     implementation (libs.androidx.navigation.compose)

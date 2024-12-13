@@ -16,31 +16,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Cake
 import androidx.compose.material.icons.filled.ChildCare
-import androidx.compose.material.icons.filled.ChildFriendly
-import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.EnergySavingsLeaf
 import androidx.compose.material.icons.filled.Fastfood
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.LocalDrink
 import androidx.compose.material.icons.filled.LocalPizza
-import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.People
-import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Restaurant
-import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -52,23 +42,20 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.google.firebase.Firebase
 import com.google.gson.GsonBuilder
 import com.joaofranco.basil.data.model.Recipe
-import com.joaofranco.basil.ui.theme.BasilTheme
 import com.joaofranco.basil.viewmodel.PromptHistoryManager
 import com.joaofranco.basil.viewmodel.RecipeViewModel
 import kotlinx.coroutines.launch
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.generationConfig
-import com.google.firebase.BuildConfig
+import com.joaofranco.basil.ui.components.ai.SuggestionCard
+import com.joaofranco.basil.ui.components.all.LoadingSpinner
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -261,35 +248,7 @@ fun AIRecipes(viewModel: RecipeViewModel, navController: NavController) {
                 "Give me a Recipe for a Comfort Food" to (Icons.Filled.Restaurant to "Give me a recipe for comfort food")
             )
             if (isGeneratingResponse) {
-                val infiniteTransition = rememberInfiniteTransition()
-                val rotation by infiniteTransition.animateFloat(
-                    initialValue = 0f,
-                    targetValue = 360f,
-                    animationSpec = infiniteRepeatable(
-                        animation = tween(durationMillis = 1000, easing = LinearEasing),
-                        repeatMode = RepeatMode.Restart
-                    )
-                )
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center // Center the content in both x and y directions
-                ) {
-                    Canvas(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .rotate(rotation)
-                    ) {
-                        drawArc(
-                            brush = gradient,
-                            startAngle = 0f,
-                            sweepAngle = 270f,
-                            useCenter = false,
-                            style = Stroke(width = 8.dp.toPx(), cap = StrokeCap.Round)
-                        )
-                    }
-                }
+                LoadingSpinner()
             } else {
                 Column(
                     modifier = Modifier
@@ -363,7 +322,7 @@ fun AIRecipes(viewModel: RecipeViewModel, navController: NavController) {
                         ) {
                             itemsIndexed(recipes) { index, (title, iconWithPrompt) ->
                                 val (icon, prompt) = iconWithPrompt // Deconstruct the Pair
-                                GeminiCard(
+                                SuggestionCard(
                                     title = title,
                                     icon = {
                                         Icon(
@@ -446,45 +405,5 @@ fun AIRecipes(viewModel: RecipeViewModel, navController: NavController) {
     toastMessage?.let { message ->
         Toast.makeText(LocalContext.current, message, Toast.LENGTH_SHORT).show()
         toastMessage = null // Clear the message after showing
-    }
-}
-
-@Composable
-fun GeminiCard(
-    title: String,
-    icon: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
-) {
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        modifier = modifier
-            .height(120.dp)
-            .width(180.dp)
-            .clickable(onClick = onClick),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer
-        ),
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = title,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color.Black,
-                lineHeight = 20.sp
-            )
-
-            Box(
-                modifier = Modifier.align(Alignment.End)
-            ) {
-                icon()
-            }
-        }
     }
 }

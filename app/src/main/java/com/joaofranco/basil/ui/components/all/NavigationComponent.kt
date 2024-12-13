@@ -21,7 +21,6 @@ import com.joaofranco.basil.ui.screens.HomeScreen
 import com.joaofranco.basil.ui.screens.MyCookbookScreen
 import com.joaofranco.basil.ui.screens.RecipeCreationScreen
 import com.joaofranco.basil.ui.screens.RecipeDetailScreen
-import com.joaofranco.basil.ui.screens.RecipeForm
 import com.joaofranco.basil.ui.screens.SearchScreen
 import com.joaofranco.basil.ui.screens.SignInScreen
 import com.joaofranco.basil.ui.screens.SignUpScreen
@@ -111,15 +110,6 @@ fun NavigationComponent(navController: NavHostController, modifier: Modifier) {
             exitTransition = { defaultExitTransition() }
         ) {
             FavoritesScreen(navController, recipeViewModel)
-        }
-
-        //recipeCreation
-        composable(
-            "recipeCreation",
-            enterTransition = { defaultEnterTransition() },
-            exitTransition = { defaultExitTransition() }
-        ) {
-            RecipeForm(Recipe(), recipeViewModel, navController)
         }
 
         composable(
