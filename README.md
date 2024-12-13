@@ -18,11 +18,14 @@
     <img src="https://github.com/JoaoFranco03/Basil/blob/main/app/src/main/res/drawable/mockup.png" alt="App Showcase" style="border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);"/>
 </div>
 
+<br>
+
 <p align="center">
-    <a href="https://youtu.be/Bj5sZ7KhZiI">
-        <img src="https://img.shields.io/badge/Watch%20Video-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch Video"/>
-    </a>
+  <a href="https://youtu.be/Bj5sZ7KhZiI">
+    <img src="https://img.shields.io/badge/Watch%20Video-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch Video"/>
+  </a>
 </p>
+
 
 ---
 
